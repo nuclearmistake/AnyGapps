@@ -1,0 +1,54 @@
+ui_print("AnyGapps Installer");
+ui_print("By Nuclearmistake");
+ui_print(" ");
+ui_print(" ");
+sleep(2);
+ui_print(".__   __.  __    __   __  ___  _______ ");
+ui_print("|  \\ |  | |  |  |  | |  |/  / |   ____|");
+ui_print("|   \\|  | |  |  |  | |  '  /  |  |__   ");
+ui_print("|  . `  | |  |  |  | |    <   |   __|  ");
+ui_print("|  |\\   | |  `--'  | |  .  \\  |  |____ ");
+ui_print("|__| \\__|  \\______/  |__|\__\\ |_______|");
+ui_print("                                       ");
+ui_print(" ");
+ui_print("Nuclear 4.4 Gapps installing");
+
+ui_print(" ");
+ui_print("Mounting...");
+show_progress(0.1, 2);
+run_program("/sbin/busybox", "mount", "/system");
+run_program("/sbin/busybox", "mount", "/data");
+
+ui_print("Extracting install scripts...");
+show_progress(0.1, 2);
+package_extract_dir("scripts", "/tmp");
+set_perm(0, 0, 0777, "/tmp/NuclearFallout.sh");
+
+ui_print("Extracting gapps...");
+show_progress(0.35, 10);
+run_program("/sbin/busybox", "mkdir", "-p", "/tmp/system");
+run_program("/sbin/busybox", "mkdir", "-p", "/tmp/data");
+package_extract_dir("system", "/tmp/system");
+package_extract_dir("data", "/tmp/data");
+
+ui_print("Running NuclearFallout gapps install script...");
+show_progress(0.35, 10);
+run_program("/sbin/sh", "/tmp/NuclearFallout.sh");
+
+ui_print("Setting permissions...");
+show_progress(0.1, 2);
+set_perm(0, 0, 0755, "/system/addon.d/70-gapps.sh");
+set_perm_recursive(0, 0, 0755, 0644, "/system/app");
+set_perm_recursive(0, 0, 0755, 0644, "/system/priv-app");
+
+ui_print(" ");
+ui_print("If you've never seen this message before...");
+ui_print("(and you dirty flashed your ROM+gapps)");
+ui_print("  1. RE-FLASH THE ROM (dirty, of course)");
+ui_print("  2. RE-FLASH THESE GAPPS");
+ui_print("Otherwise, some of your previous gapps'");
+ui_print("  residue might remain until your next");
+ui_print("  dirty flash.");
+run_program("/sbin/busybox", "umount", "/system");
+run_program("/sbin/busybox", "umount", "/data");
+sleep(5);
