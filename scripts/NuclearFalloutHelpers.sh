@@ -2,6 +2,7 @@
 # Eric McCann (Nuclearmistake) 2014
 
 backuptool_header() {
+mkdir -p /system/addon.d/70-gapps.sh
 cat > /system/addon.d/70-gapps.sh <<NUKE
 #!/sbin/sh
 #
