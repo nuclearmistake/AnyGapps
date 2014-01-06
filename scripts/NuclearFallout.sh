@@ -5,8 +5,11 @@ always_clean() {
 cat <<EOF
 /system/app/Provision.apk
 /system/app/QuickSearchBox.apk
-/system/app/SetupWizard.apk
+/system/app/priv-app/SetupWizard.apk
+/system/app/priv-app/Velvet.apk
 /system/app/Vending.apk
+/system/app/BrowserProviderProxy.apk
+/system/app/PartnerBookmarksProvider.apk
 EOF
 }
 
