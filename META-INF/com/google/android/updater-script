@@ -39,17 +39,6 @@ run_program("/tmp/install-optional.sh", "");
 
 ui_print("Setting permissions");
 show_progress(0.1, 2);
-
-#set_perm_recursive(0, 0, 0755, 0755, "/system/addon.d/70-gapps.sh");
-#set_perm_recursive(0, 0, 0755, 0644, "/system/app");
-#set_perm_recursive(0, 0, 0755, 0644, "/system/priv-app");
-#set_perm_recursive(0, 0, 0755, 0644, "/system/etc/permissions");
-#set_perm_recursive(0, 0, 0755, 0644, "/system/etc/preferred-apps");
-#set_perm(0, 0, 0755, "/system/etc/g.prop");
-#set_perm_recursive(0, 0, 0755, 0644, "/system/framework");
-#set_perm_recursive(0, 0, 0755, 0644, "/system/lib");
-#set_perm_recursive(0, 0, 0755, 0644, "/system/usr/srec/en-US");
-#set_perm_recursive(0, 0, 0755, 0644, "/system/vendor/pittpatt");
 set_metadata_recursive("/system/addon.d", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0755, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
 set_metadata_recursive("/system/app", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
 set_metadata_recursive("/system/priv-app", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
