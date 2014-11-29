@@ -1,6 +1,5 @@
 #!/bin/sh
 # Eric McCann (Nuclearmistake) 2014
-set -e
 export VERBOSE=1
 #export VERBOSE_GENERATION=1
 
@@ -31,4 +30,3 @@ fi
 
 # copy data files into place (if there are any)
 [ -e /tmp/data ] && copy_files /tmp/data /data
-set +e
