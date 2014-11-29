@@ -3,3 +3,5 @@ system
 META-INF/*.MF
 META-INF/*.SF
 META-INF/*.*SA
+install-optional.sh
+optional
