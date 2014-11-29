@@ -62,6 +62,6 @@ copy_files() {
     RELATIVE=$(echo $FILE | /sbin/busybox sed 's/^\.\///g')
     cp $FILE $2/$RELATIVE
     # STRING COMPARE FTW... add files copied to /system to the CM backuptool script
-    [ "$2" = "/system" ] && echo $RELATIVE >> /system/addon.d/70-gapps.sh
+    [ ! $NO_BACKUP ] && echo $RELATIVE >> /system/addon.d/70-gapps.sh
   done
 }

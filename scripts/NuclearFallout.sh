@@ -25,4 +25,4 @@ copy_files /tmp/system /system
 backuptool_footer
 
 # copy data files into place (if there are any)
-[ -e /tmp/data ] && copy_files /tmp/data /data
+[ -e /tmp/data ] && ( export NO_BACKUP=1 && copy_files /tmp/data /data )
