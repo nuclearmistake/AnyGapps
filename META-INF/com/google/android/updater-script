@@ -17,6 +17,7 @@ ui_print(" ");
 ui_print("Mounting...");
 show_progress(0.1, 2);
 run_program("/sbin/sh", "-c", "busybox mount | grep system > /dev/null || busybox mount /system");
+run_program("/sbin/sh", "-c", "busybox mount | grep data > /dev/null || busybox mount /data");
 
 ui_print("Extracting install scripts...");
 show_progress(0.1, 2);
@@ -26,16 +27,13 @@ set_perm(0, 0, 0777, "/tmp/NuclearFallout.sh");
 ui_print("Extracting gapps...");
 show_progress(0.35, 10);
 run_program("/sbin/busybox", "mkdir", "-p", "/tmp/system");
+run_program("/sbin/busybox", "mkdir", "-p", "/tmp/data");
 package_extract_dir("system", "/tmp/system");
+package_extract_dir("data", "/tmp/data");
 
 ui_print("Running NuclearFallout gapps install script...");
 show_progress(0.35, 10);
 run_program("/sbin/sh", "/tmp/NuclearFallout.sh");
-
-package_extract_dir("optional", "/tmp");
-package_extract_file("install-optional.sh", "/tmp/install-optional.sh");
-set_perm(0, 0, 0777, "/tmp/install-optional.sh");
-run_program("/tmp/install-optional.sh", "");
 
 ui_print("Setting permissions");
 show_progress(0.1, 2);
@@ -50,6 +48,7 @@ set_metadata_recursive("/system/lib", "uid", 0, "gid", 0, "dmode", 0755, "fmode"
 set_metadata_recursive("/system/usr/srec/en-US", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
 set_metadata_recursive("/system/vendor/pittpatt", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
 run_program("/sbin/busybox", "umount", "/system");
+run_program("/sbin/busybox", "umount", "/data");
 ui_print(" ");
 ui_print("If you've never seen this message before...");
 ui_print("(and you dirty flashed your ROM+gapps)");
