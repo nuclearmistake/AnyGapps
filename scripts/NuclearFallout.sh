@@ -10,7 +10,6 @@ cat <<EOF
 /system/app/Vending/Vending.apk
 /system/app/BrowserProviderProxy/BrowserProviderProxy.apk
 /system/app/PartnerBookmarksProver/PartnerBookmarksProvider.apk
-/system/app/Calendar/Calendar.apk
 EOF
 }
 
