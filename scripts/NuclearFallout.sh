@@ -1,7 +1,8 @@
 #!/bin/sh
 # Eric McCann (Nuclearmistake) 2014
-
+set -e
 export VERBOSE=1
+#export VERBOSE_GENERATION=1
 
 always_clean() {
 cat <<EOF
@@ -22,9 +23,12 @@ done
 . /tmp/NuclearFalloutHelpers.sh
 
 # copy system files into place AND generate 70-gapps.sh while we do
-backuptool_header
-copy_files /tmp/system /system
-backuptool_footer
+if [ $VERBOSE_GENERATION ] && [ $OUTFD ]; then
+    generate_gapps_script | tee /system/addon.d/70-gapps.sh | while read LINE; do ui_print $LINE; done
+else
+    generate_gapps_script > /system/addon.d/70-gapps.sh
+fi
 
 # copy data files into place (if there are any)
 [ -e /tmp/data ] && copy_files /tmp/data /data
+set +e
