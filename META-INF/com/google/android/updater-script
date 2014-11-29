@@ -11,12 +11,12 @@ ui_print("|  |\\   | |  `--'  | |  .  \\  |  |____ ");
 ui_print("|__| \\__|  \\______/  |__|\__\\ |_______|");
 ui_print("                                       ");
 ui_print(" ");
-ui_print("Nuclear 4.4 Gapps installing");
+ui_print("Nuclear 5.0 Gapps installing");
 
 ui_print(" ");
 ui_print("Mounting...");
 show_progress(0.1, 2);
-run_program("/sbin/busybox", "mount", "/system");
+run_program("/sbin/sh", "-c", "busybox mount | grep system > /dev/null || busybox mount /system");
 
 ui_print("Extracting install scripts...");
 show_progress(0.1, 2);
