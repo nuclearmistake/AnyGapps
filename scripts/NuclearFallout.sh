@@ -1,6 +1,8 @@
 #!/bin/sh
 # Eric McCann (Nuclearmistake) 2014
 
+export VERBOSE=1
+
 always_clean() {
 cat <<EOF
 /system/app/Provision/Provision.apk

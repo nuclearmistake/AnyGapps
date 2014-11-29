@@ -17,27 +17,38 @@ ui_print() { if [ "$OUTFD" != "" ]; then echo "$0: $*" 1>&$OUTFD; fi; return 0; 
 
 . /tmp/backuptool.functions
 
+noisy_restore_file() { ui_print "restore: $*"; restore_file $*; }
+noisy_backup_file() { ui_print "backup: $*"; backup_file $*; }
+NUKE
+if [ $VERBOSE ]; then
+echo "RESTORE=noisy_restore_file" >> /system/addon.d/70-gapps.sh
+echo "BACKUP=noisy_backup_file" >> /system/addon.d/70-gapps.sh
+else
+echo "RESTORE=restore_file" >> /system/addon.d/70-gapps.sh
+echo "BACKUP=backup_file" >> /system/addon.d/70-gapps.sh
+fi
+cat >> /system/addon.d/70-gapps.sh <<NUKE
 list_files() {
 cat <<EOF
 NUKE
 }
 
 backuptool_footer() {
-cat >> /system/addon.d/70-gapps.sh <<NUKE
+cat >> /system/addon.d/70-gapps.sh <<\NUKE
 EOF
 }
 
-case "\$1" in
+case "$1" in
   backup)
     list_files | while read FILE DUMMY; do
-      backup_file \$S/\$FILE
+      $BACKUP $S/$FILE
     done
   ;;
   restore)
     list_files | while read FILE REPLACEMENT; do
       R=""
-      [ -n "\$REPLACEMENT" ] && R="\$S/\$REPLACEMENT"
-      [ -f "\$C/\$S/\$FILE" ] && restore_file \$S/\$FILE \$R
+      [ -n "$REPLACEMENT" ] && R="$S/$REPLACEMENT"
+      [ -f "$C/$S/$FILE" ] && $RESTORE $S/$FILE $R
     done
   ;;
   pre-backup)
